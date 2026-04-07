@@ -1,11 +1,13 @@
 ---
 title: "Yet another blog"
-date: 2026-04-02
-slug: another-blog
+post-date: 2026-04-02
+update-date: 2026-04-07
+slug: yet-another-blog
 tags: [meta, dev, indie-web, writing, kink]
 summary: Starting a new blog, and a blogging system...
 cover:
 draft: true
+featured: true
 ---
 
 # Yet another blog

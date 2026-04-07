@@ -1,0 +1,3 @@
+# Settings for the md_convert script
+stylesheet-path: ./style/styles.css
+export-path: ./blog
