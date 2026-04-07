@@ -5,6 +5,11 @@ use std::fs;
 fn main () {
     println!("Start convert!");
 
+    // Config file
+
+
+    // CLI Arguments
+
     let args: Vec<String> = env::args().collect();
 
     let file_path = &args[1];
@@ -16,17 +21,22 @@ fn main () {
 
     // Parsing
     let mut parsed = String::from("");
-    let mut frontmatter = 0;
+    let mut frontmatter_iterator = 0;
 
     content.lines().for_each(|x|
         if x.starts_with("---") {
-            //TODO: parsing front matter
-            frontmatter += 1;
+            //TODO: Differentiate frontmatter and horizontal rule line
+            frontmatter_iterator += 1;
+            
+            if frontmatter_iterator == 2 {
+                //TODO: Wrap header and start body at end of frontmatter
+            }
         }
-        else if frontmatter == 1 {
-            // Do nothing
+        else if frontmatter_iterator == 1 {
+            //TODO: parsing front matter
         }
         else if x.starts_with('#') {
+            // Header tag
             let mut h_level = 0;
             let mut y = x.chars();
             while y.next().unwrap() == '#' {
@@ -39,6 +49,7 @@ fn main () {
             parsed.push_str(&s);
         }
         else if x.starts_with('!') {
+            // Image tag
             let alt_start: usize = x.find('[').unwrap() + 1;
             let alt_end: usize = x[alt_start..].find(']').unwrap();
             let alt_text = &x[alt_start..alt_start + alt_end];
@@ -51,8 +62,16 @@ fn main () {
             parsed.push_str(&s);
         }
         else {
-            let s = format!("<p>{x}</p>\n");
-            parsed.push_str(&s);
+            // Everything else (paragraphs)
+            if x.is_empty() {
+                // Do nothing (only need to wrap actual content in <p> tags)
+            }
+            else
+            {
+                //TODO: inline formatting check (eg. italic & bold)
+                let s = format!("<p>{x}</p>\n");
+                parsed.push_str(&s);
+            }
         }
     );
 
